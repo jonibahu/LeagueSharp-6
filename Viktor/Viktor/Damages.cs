@@ -25,8 +25,8 @@ namespace Viktor
             if (Player.HasBuff("viktorpowertransferreturn") || Spell[SpellSlot.Q].IsReady())
             {
                 damage += Player.CalcDamage(
-                    enemy, Damage.DamageType.Magical,
-                    qaaDmg[Player.Level - 1] + (Player.TotalMagicalDamage * .5) + Player.TotalAttackDamage());
+                    enemy, Damage.DamageType.Magical, qaaDmg[Player.Level >= 18 ? 18 - 1 : Player.Level - 1] + 
+                        (Player.TotalMagicalDamage * .5) + Player.TotalAttackDamage());
             }
 
             if (Spell[SpellSlot.E].IsReady())
