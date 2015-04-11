@@ -26,7 +26,7 @@ namespace Viktor
                         return;
                     }
                     Utils.ClearConsole();
-                    //Updater.Init("Apollo16", "Viktor");
+                    Updater.Init("Apollo16", "Viktor");
                     Spells.Init();
                     Config.Init();
                     Drawing.Init();
