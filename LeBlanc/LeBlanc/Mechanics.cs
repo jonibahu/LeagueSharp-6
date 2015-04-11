@@ -25,6 +25,8 @@ namespace LeBlanc
             if (Player.IsDead || Player.IsRecalling() || args == null)
                 return;
 
+            Console.WriteLine(Objects.Clone.Pet != null);
+
             if (!Config.LeBlanc.GetKeyBind("flee.key").Active)
                 Killsteal();
 
@@ -296,7 +298,7 @@ namespace LeBlanc
         }
         private static void Misc()
         {
-            if (Config.LeBlanc.GetBool("misc.2w.mouseover.bool") && Spell[SpellSlot.W].IsSecond())
+            if (Config.LeBlanc.GetBool("misc.2w.mouseover.bool") && Spell[SpellSlot.W].IsSecond() && Objects.SecondW.ExpireTime - Game.Time > 0.1)
             {
                 var width = Config.LeBlanc.Item("apollo.leblanc.misc.2w.mouseover.width").GetValue<Slider>().Value;
                 var exPos = Objects.SecondW.Object.Position.Extend(Game.CursorPos, width);

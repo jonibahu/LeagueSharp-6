@@ -15,7 +15,7 @@ namespace LeBlanc
                         return;
                     Utils.ClearConsole();
                     //todo Longrange w
-                    //Helper.Updater.Init("Apollo16/LeagueSharp/master/LeBlanc/LeBlanc");
+                    Helper.UpdateChecker.Init("Apollo16", "LeBlanc");
                     Config.Init();
                     Helper.Spells.Init();
                     Helper.Objects.Init();

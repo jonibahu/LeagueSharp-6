@@ -15,12 +15,14 @@ namespace LeBlanc.Helper
         };
         public static void Init()
         {
+            Spell[SpellSlot.Q].SetTargetted(0.25f, 2000);
             Spell[SpellSlot.W].SetSkillshot(0.25f, 70, 1500, false, SkillshotType.SkillshotCircle);
             Spell[SpellSlot.E].SetSkillshot(0.25f, 70, 1600, true, SkillshotType.SkillshotLine);
 
             if (Spell[SpellSlot.R].HasStatus(SpellSlot.Q))
             {
                 Spell[SpellSlot.R] = new Spell(SpellSlot.R, Spell[SpellSlot.Q].Range);
+                Spell[SpellSlot.R].SetTargetted(Spell[SpellSlot.Q].Delay, Spell[SpellSlot.Q].Speed);
             }
             if (Spell[SpellSlot.R].HasStatus(SpellSlot.W))
             {
@@ -37,9 +39,9 @@ namespace LeBlanc.Helper
         public static bool IsSecond(this Spell spell)
         {
             if (spell.Slot == SpellSlot.W)
-                return spell.Instance.Name == "leblancslidereturn";
+                return ObjectManager.Player.Spellbook.GetSpell(SpellSlot.W).ToggleState == 2;
             if (spell.Slot == SpellSlot.R)
-                return spell.Instance.Name == "leblancslidereturnm";
+                return ObjectManager.Player.Spellbook.GetSpell(SpellSlot.R).ToggleState == 2;
 
             return false;
         }

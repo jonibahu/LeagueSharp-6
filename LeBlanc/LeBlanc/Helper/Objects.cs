@@ -10,6 +10,11 @@ namespace LeBlanc.Helper
             public static GameObject Object { get; set; }
             public static double ExpireTime { get; set; }
         }
+        public static class SecondR
+        {
+            public static GameObject Object { get; set; }
+            public static double ExpireTime { get; set; }
+        }
         public static class Clone
         {
             public static Obj_AI_Base Pet { get; set; }
@@ -32,7 +37,12 @@ namespace LeBlanc.Helper
                 SecondW.Object = sender;
                 SecondW.ExpireTime = Game.Time + 4;
             }
-            if (sender.Name.Contains("LeBlanc_MirrorImagePoff.troy"))
+            if (sender.Name.Contains("LeBlanc_Base_RW_return_indicator.troy"))
+            {
+                SecondR.Object = sender;
+                SecondR.ExpireTime = Game.Time + 4;
+            }
+            if (sender.Name.Equals(ObjectManager.Player.Name)) //sender.Name.Contains("LeBlanc_Base_P_poof.troy")
             {
                 Clone.Pet = sender as Obj_AI_Base;
                 Clone.ExpireTime = Game.Time + 8;
@@ -47,7 +57,11 @@ namespace LeBlanc.Helper
             {
                 SecondW.Object = null;
             }
-            if (sender.Name.Contains("LeBlanc_MirrorImagePoff.troy"))
+            if (sender.Name.Contains("LeBlanc_Base_RW_return_indicator.troy"))
+            {
+                SecondW.Object = null;
+            }
+            if (sender.Name.Equals(ObjectManager.Player.Name))
             {
                 Clone.Pet = null;
             }
