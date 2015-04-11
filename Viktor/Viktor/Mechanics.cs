@@ -323,7 +323,7 @@ namespace Viktor
 
         private static void CastR(Obj_AI_Base t)
         {
-            if (t == null || !Spell[SpellSlot.R].IsReady() || ChaosStorm != null)
+            if (t == null || !Spell[SpellSlot.R].IsReady() || Spell[SpellSlot.R].Instance.Name != "ViktorChaosStorm")
             {
                 return;
             }
@@ -345,10 +345,10 @@ namespace Viktor
 
         private static void AutoFollowR()
         {
-            if (ChaosStorm != null && Config.ViktorConfig.Item("apollo.viktor.combo.r.autofollow").GetValue<bool>())
+            if (Spell[SpellSlot.R].Instance.Name != "ViktorChaosStorm" && Config.ViktorConfig.Item("apollo.viktor.combo.r.autofollow").GetValue<bool>())
             {
                 var stormT = TargetSelector.GetTarget(
-                    Player, 1600, TargetSelector.DamageType.Magical, true, null, ChaosStorm.Position);
+                    Player, 1100, TargetSelector.DamageType.Magical);
                 if (stormT != null)
                     Utility.DelayAction.Add(
                         Config.ViktorConfig.Item("apollo.viktor.combo.r.delay").GetValue<Slider>().Value,
@@ -405,15 +405,15 @@ namespace Viktor
         {
             if (args.DangerLevel >= Interrupter2.DangerLevel.High)
             {
-                bool useW = Config.ViktorConfig.Item("apollo.viktor.interrupt.w.bool").GetValue<bool>();
-                bool useR = Config.ViktorConfig.Item("apollo.viktor.interrupt.r.bool").GetValue<bool>();
+                var useW = Config.ViktorConfig.Item("apollo.viktor.interrupt.w.bool").GetValue<bool>();
+                var useR = Config.ViktorConfig.Item("apollo.viktor.interrupt.r.bool").GetValue<bool>();
 
                 if (useW && Spell[SpellSlot.W].IsReady() && unit.IsValidTarget(Spell[SpellSlot.W].Range) &&
                     (Game.Time + 1.5 + Spell[SpellSlot.W].Delay) >= args.EndTime)
                 {
                     Spell[SpellSlot.W].Cast(unit.ServerPosition, PacketCast);
                 }
-                else if (useR && unit.IsValidTarget(Spell[SpellSlot.R].Range))
+                else if (useR && unit.IsValidTarget(Spell[SpellSlot.R].Range) && Spell[SpellSlot.R].Instance.Name == "ViktorChaosStorm")
                 {
                     Spell[SpellSlot.R].Cast(unit.ServerPosition, PacketCast);
                 }

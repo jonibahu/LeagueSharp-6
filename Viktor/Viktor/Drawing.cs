@@ -53,7 +53,7 @@ namespace Viktor
             {
                 Render.Circle.DrawCircle(Player.Position, Spell[SpellSlot.R].Range, cdR ? drawCd.Color : drawR.Color);
             }
-            if (Mechanics.ChaosStorm != null)
+            if (Spell[SpellSlot.R].Instance.Name != "ViktorChaosStorm")
                 Render.Circle.DrawCircle(Mechanics.ChaosStorm.Position.To2D().To3D(), 0, Color.Red, (int)Spell[SpellSlot.R].Width);
         }
     }
