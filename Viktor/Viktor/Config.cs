@@ -90,7 +90,7 @@ namespace Viktor
             var laneclear = new Menu("Laneclear", "apollo.viktor.laneclear");
             {
                 var q = new Menu("Q", "apollo.viktor.laneclear.q");
-                q.AddItem(new MenuItem("apollo.viktor.laneclear.q.bool", "Use in Laneclear").SetValue(true));
+                q.AddItem(new MenuItem("apollo.viktor.laneclear.q.bool", "Use in Laneclear").SetValue(false));
                 q.AddItem(new MenuItem("apollo.viktor.laneclear.q.lasthit", "Use to Lasthit").SetValue(false));
                 q.AddItem(new MenuItem("apollo.viktor.laneclear.q.canon", "Use to kill Canonminions").SetValue(true));
                 laneclear.AddSubMenu(q);

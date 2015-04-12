@@ -24,7 +24,6 @@ namespace Viktor
             Interrupter2.OnInterruptableTarget += OnInterruptableTarget;
             AntiGapcloser.OnEnemyGapcloser += OnEnemyGapcloser;
             Orbwalking.AfterAttack += AfterAttack;
-            Obj_AI_Base.OnProcessSpellCast += OnProcessSpellCast;
         }
 
         private static void OnUpdate(EventArgs args)
@@ -223,9 +222,9 @@ namespace Viktor
                 return;
             }
             if (Player.Distance(t) < Player.AttackRange)
-                Spell[SpellSlot.Q].CastOnUnit(t, PacketCast);
+                Spell[SpellSlot.Q].Cast(t, PacketCast);
             else if (!Config.ViktorConfig.Item("apollo.viktor.combo.q.aa").GetValue<bool>())
-                Spell[SpellSlot.Q].CastOnUnit(t, PacketCast);
+                Spell[SpellSlot.Q].Cast(t, PacketCast);
         }
 
         private static void CastW()
@@ -323,7 +322,7 @@ namespace Viktor
 
         private static void CastR(Obj_AI_Base t)
         {
-            if (t == null || !Spell[SpellSlot.R].IsReady() || Spell[SpellSlot.R].Instance.Name != "ViktorChaosStorm")
+            if (t == null || !Spell[SpellSlot.R].IsReady() || Spell[SpellSlot.R].Instance.Name != "ViktorChaosStorm" || !t.IsValidTarget(Spell[SpellSlot.R].Range))
             {
                 return;
             }
@@ -489,13 +488,6 @@ namespace Viktor
             if (lastHitCanonQ && canonLasthit != null)
             {
                 Spell[SpellSlot.Q].CastOnUnit(canonLasthit, PacketCast);
-            }
-        }
-        public static void OnProcessSpellCast(Obj_AI_Base unit, GameObjectProcessSpellCastEventArgs args)
-        {
-            if (args.SData.Name == Spell[SpellSlot.Q].Instance.SData.Name && Config.Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Combo)
-            {
-                Player.IssueOrder(GameObjectOrder.AttackUnit, args.Target);
             }
         }
     }
