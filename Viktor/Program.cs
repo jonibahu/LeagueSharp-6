@@ -233,7 +233,7 @@ namespace Viktor
 
         private static void Harass()
         {
-            if (Player.ManaPercent < Menu.Item("ManaH").GetValue<Slider>().Value)
+            if (Player.ManaPercentage() < Menu.Item("ManaH").GetValue<Slider>().Value)
                 return;
 
             if (Q.IsReady() && Menu.Item("UseQH").GetValue<bool>())
@@ -258,7 +258,7 @@ namespace Viktor
 
         private static void LaneClear()
         {
-            if (Player.ManaPercent < Menu.Item("ManaL").GetValue<Slider>().Value)
+            if (Player.ManaPercentage() < Menu.Item("ManaL").GetValue<Slider>().Value)
                 return;
 
             if (Q.IsReady() && Menu.Item("UseQL").GetValue<bool>())
