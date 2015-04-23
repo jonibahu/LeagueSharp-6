@@ -16,7 +16,7 @@ namespace Darius
                 var request =
                     WebRequest.Create(
                         String.Format(
-                            "https://raw.githubusercontent.com/{0}/LeagueSharp/master/{1}/{1}/Properties/AssemblyInfo.cs",
+                            "https://raw.githubusercontent.com/{0}/LeagueSharp/master/{1}/Properties/AssemblyInfo.cs",
                             user, assembly));
                 var response = request.GetResponse();
                 var data = response.GetResponseStream();

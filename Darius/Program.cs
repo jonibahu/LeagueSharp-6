@@ -217,7 +217,10 @@ namespace Darius
 
             if (R.IsReady())
             {
-                damage += Player.GetSpellDamage(enemy, SpellSlot.R);
+                var baseDmg = new[] { 160, 250, 340 }[R.Level - 1];
+                var additionalDmg = (new[]{160, 250, 340}[R.Level - 1] + (Player.TotalAttackDamage - Player.BaseAttackDamage)) *(0.2*enemy.Buffs.Count(h => h.Name == "dariushemo"));
+                var maxDmg = new[] {320, 500, 680}[R.Level - 1] + (Player.TotalAttackDamage - Player.BaseAttackDamage);
+                damage += Player.CalcDamage(enemy, Damage.DamageType.True, (baseDmg + additionalDmg) > maxDmg ? maxDmg : baseDmg + additionalDmg);
             }
 
             if (IgniteSlot != SpellSlot.Unknown && Player.Spellbook.CanUseSpell(IgniteSlot) == SpellState.Ready)
