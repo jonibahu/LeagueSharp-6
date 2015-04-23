@@ -115,7 +115,8 @@ namespace Darius
                 {
                     var t = TargetSelector.GetTarget(E.Range, TargetSelector.DamageType.Physical);
                     if (t != null)
-                        E.CastIfHitchanceEquals(t, HitChance.High);
+                        if (!Orbwalking.InAutoAttackRange(t))
+                            E.CastIfHitchanceEquals(t, HitChance.High);
                 }
                 if (Q.IsReady() && Menu.Item("UseQC").GetValue<bool>())
                 {
@@ -140,7 +141,8 @@ namespace Darius
                 {
                     var t = TargetSelector.GetTarget(E.Range, TargetSelector.DamageType.Physical);
                     if (t != null)
-                        E.CastIfHitchanceEquals(t, HitChance.High);
+                        if (!Orbwalking.InAutoAttackRange(t))
+                            E.CastIfHitchanceEquals(t, HitChance.High);
                 }
                 if (Q.IsReady() && Menu.Item("UseQH").GetValue<bool>())
                 {
