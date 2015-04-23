@@ -10,7 +10,7 @@ namespace Darius
     {
         private static readonly Obj_AI_Hero Player = ObjectManager.Player;
         private static Menu Menu;
-        private static Orbwalking.Orbwalker Orbwalker;
+        private static Orbwalking.Orbwalker Orbwalker; 
 
         private static Spell Q;
         private static Spell W;
@@ -127,7 +127,7 @@ namespace Darius
                 {
                     var t = TargetSelector.GetTarget(R.Range, TargetSelector.DamageType.True);
                     if (t != null)
-                        if (t.Health < Player.GetSpellDamage(t, SpellSlot.R))
+                        if (t.Health < RDamage(t))
                             R.Cast(t);
                 }
             }
@@ -201,6 +201,14 @@ namespace Darius
             E.Cast(sender);
         }
 
+        private static float RDamage(Obj_AI_Base enemy)
+        {
+            var baseDmg = new[] { 160, 250, 340 }[R.Level - 1];
+            var additionalDmg = (new[] { 160, 250, 340 }[R.Level - 1] + (Player.TotalAttackDamage - Player.BaseAttackDamage)) * (0.2 * enemy.Buffs.Count(h => h.Name == "dariushemo"));
+            var maxDmg = new[] { 320, 500, 680 }[R.Level - 1] + (Player.TotalAttackDamage - Player.BaseAttackDamage);
+            return (float)Player.CalcDamage(enemy, Damage.DamageType.True, (baseDmg + additionalDmg) > maxDmg ? maxDmg : baseDmg + additionalDmg);
+        }
+
         private static float ComboDamage(Obj_AI_Base enemy)
         {
             var damage = 0d;
@@ -217,10 +225,7 @@ namespace Darius
 
             if (R.IsReady())
             {
-                var baseDmg = new[] { 160, 250, 340 }[R.Level - 1];
-                var additionalDmg = (new[]{160, 250, 340}[R.Level - 1] + (Player.TotalAttackDamage - Player.BaseAttackDamage)) *(0.2*enemy.Buffs.Count(h => h.Name == "dariushemo"));
-                var maxDmg = new[] {320, 500, 680}[R.Level - 1] + (Player.TotalAttackDamage - Player.BaseAttackDamage);
-                damage += Player.CalcDamage(enemy, Damage.DamageType.True, (baseDmg + additionalDmg) > maxDmg ? maxDmg : baseDmg + additionalDmg);
+                damage += RDamage(enemy);
             }
 
             if (IgniteSlot != SpellSlot.Unknown && Player.Spellbook.CanUseSpell(IgniteSlot) == SpellState.Ready)
