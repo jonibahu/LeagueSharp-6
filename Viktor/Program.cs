@@ -447,8 +447,7 @@ namespace Viktor
                 }
                 else if (useR && unit.IsValidTarget(R.Range) && R.Instance.Name == "ViktorChaosStorm")
                 {
-                    if (W.Cast(unit) == Spell.CastStates.SuccessfullyCasted)
-                        return;
+                    E.Cast(unit);
                 }
             }
         }
