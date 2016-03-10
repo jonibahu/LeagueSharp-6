@@ -68,6 +68,7 @@ namespace LeBlanc
                     r.AddSubMenu(rw);
 
                     var re = new Menu("E", "apollo.leblanc.combo.r.e");
+                    rw.AddBool("Use.E", "Use R(E)");
                     re.AddHitChance("combo.r.e.pre");
                     r.AddSubMenu(re);
                 }
